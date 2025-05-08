@@ -1,19 +1,32 @@
 import userModel from "../models/userModel.js"
-export const userInsert = (req, res)=>{
+import bcrypt from "bcrypt";
+export const userInsert = async(req, res)=>{
     try {
-        const userData = req.body;
-        const createUser = userModel.create(userData);
+        const {firstName, lastName, gender, city, emailAddress} = req.body;
+        const salt = await bcrypt.genSalt(10);
+        const password = await bcrypt.hash(req.body.password,salt);
+        const confirmPassword = await bcrypt.hash(req.body.confirmPassword,salt);
+        const createUser = userModel.create({
+            firstName,lastName,gender,city,emailAddress,password,confirmPassword
+        });
 
         if(createUser){
             return res.status(201).json({
                 message: "user is created successfully.",
-                data: userData
+                data: {
+                    firstName,
+                    lastName,
+                    gender,
+                    city,
+                    emailAddress,
+                    password,
+                    confirmPassword
+                }
             })
         }
 
         return res.status(400).json({
             message: "user is not created.",
-            data: userData
         })
     } catch (error) {
         return res.status(500).json({
