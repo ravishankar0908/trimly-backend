@@ -1,6 +1,7 @@
 import userModel from "../models/userModel.js"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
 export const userInsert = async(req, res)=>{
     try {
@@ -64,6 +65,53 @@ export const userLogin = async(req, res)=>{
             jwtoken: jwtToken
         })
 
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
+
+export const allUserList = async (req, res)=>{
+    try {
+
+        const users = await userModel.find({});
+
+        if(users.length===0){
+            return res.status(404).json({
+                message: "There are no users."
+            })
+        }
+
+        return res.status(200).json({
+            message: "List of all the users",
+            users
+        })
+        
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
+
+export const userById = async(req, res)=>{
+    try {
+        const { userId } = req.query;
+        const user = await userModel.findById(new mongoose.Types.ObjectId(userId));
+
+        if(!user){
+            return res.status(404).json({
+                message: "The userid is invalid or user is not found."
+            })
+        }
+
+        return res.status(200).json({
+            message: "user details for the given userId",
+            user
+        })
     } catch (error) {
         return res.status(500).json({
             message: "Internal Server Error",
