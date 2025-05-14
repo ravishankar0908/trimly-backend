@@ -43,7 +43,7 @@ export const userLogin = async(req, res)=>{
     try {
         const {emailAddress, password} = req.body;
         const userCheck = await userModel.findOne({emailAddress});
-        console.log(userCheck);
+        const payload = {id: userCheck._id, email: userCheck.emailAddress}
         
         if(userCheck === null){
             return res.status(404).json({
@@ -58,7 +58,7 @@ export const userLogin = async(req, res)=>{
             })
         }
 
-        const jwtToken = jwt.sign({id: userCheck._id, email: userCheck.emailAddress},process.env.jwt_secret_key);
+        const jwtToken = jwt.sign(payload,process.env.jwt_secret_key);
 
         return res.status(200).json({
             message: "Logged Successfully.",
@@ -75,7 +75,7 @@ export const userLogin = async(req, res)=>{
 
 export const allUserList = async (req, res)=>{
     try {
-
+        
         const users = await userModel.find({});
 
         if(users.length===0){
