@@ -2,6 +2,7 @@ import userModel from "../models/userModel.js"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+import { statusCodes, messages } from "../util/responseStatuscodes.js";
 
 export const userInsert = async(req, res)=>{
     try {
@@ -14,8 +15,8 @@ export const userInsert = async(req, res)=>{
         });
 
         if(createUser){
-            return res.status(201).json({
-                message: "user is created successfully.",
+            return res.status(statusCodes.created).json({
+                message: messages.registrationSuccess,
                 data: {
                     firstName,
                     lastName,
@@ -28,12 +29,12 @@ export const userInsert = async(req, res)=>{
             })
         }
 
-        return res.status(400).json({
-            message: "user is not created.",
+        return res.status(statusCodes.badreq).json({
+            message: messages.registrationFailed,
         })
     } catch (error) {
-        return res.status(500).json({
-            message: "server error data is not created",
+        return res.status(statusCodes.serverError).json({
+            message: messages.serverErrorMessage,
             error: error.message
         })
     }
@@ -46,28 +47,28 @@ export const userLogin = async(req, res)=>{
         const payload = {id: userCheck._id, email: userCheck.emailAddress}
         
         if(userCheck === null){
-            return res.status(404).json({
-                message: "The given Email is not found."
+            return res.status(statusCodes.notFound).json({
+                message: messages.emailNotFound
             })
         }
         const encryptedPassword = userCheck.password;
         const passwordMatch= await bcrypt.compare(password,encryptedPassword);
         if(!passwordMatch){
-            return res.status(401).json({
-                message: "The given password is incorrect!"
+            return res.status(statusCodes.badreq).json({
+                message: messages.passwordIncorrect
             })
         }
 
         const jwtToken = jwt.sign(payload,process.env.jwt_secret_key);
 
-        return res.status(200).json({
-            message: "Logged Successfully.",
+        return res.status(statusCodes.success).json({
+            message: messages.loginSuccess,
             jwtoken: jwtToken
         })
 
     } catch (error) {
-        return res.status(500).json({
-            message: "Internal Server Error",
+        return res.status(statusCodes.serverError).json({
+            message: messages.serverErrorMessage,
             error: error.message
         })
     }
@@ -79,19 +80,19 @@ export const allUserList = async (req, res)=>{
         const users = await userModel.find({});
 
         if(users.length===0){
-            return res.status(404).json({
-                message: "There are no users."
+            return res.status(statusCodes.notFound).json({
+                message: messages.noUsers
             })
         }
 
-        return res.status(200).json({
-            message: "List of all the users",
+        return res.status(statusCodes.success).json({
+            message: messages.allUsers,
             users
         })
         
     } catch (error) {
-        return res.status(500).json({
-            message: "Internal Server Error",
+        return res.status(statusCodes.serverError).json({
+            message: messages.serverErrorMessage,
             error: error.message
         })
     }
@@ -103,18 +104,18 @@ export const userById = async(req, res)=>{
         const user = await userModel.findById(new mongoose.Types.ObjectId(userId));
 
         if(!user){
-            return res.status(404).json({
-                message: "The userid is invalid or user is not found."
+            return res.status(statusCodes.notFound).json({
+                message: messages.invalidUserId
             })
         }
 
-        return res.status(200).json({
-            message: "user details for the given userId",
+        return res.status(statusCodes.found).json({
+            message: messages.validUserId,
             user
         })
     } catch (error) {
-        return res.status(500).json({
-            message: "Internal Server Error",
+        return res.status(statusCodes.serverError).json({
+            message: messages.serverErrorMessage,
             error: error.message
         })
     }
