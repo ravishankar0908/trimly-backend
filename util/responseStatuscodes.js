@@ -20,5 +20,6 @@ export const messages = {
     noUsers: "No users are available.",
     allUsers: "List of all the users.",
     invalidUserId: "The userid is invalid or user is not found.",
-    validUserId: "user details for the given userId."
+    validUserId: "user details for the given userId.",
+    emailExist: "The Given Email is already Exists."
 }

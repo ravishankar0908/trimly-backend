@@ -7,6 +7,11 @@ import { statusCodes, messages } from "../util/responseStatuscodes.js";
 export const userInsert = async(req, res)=>{
     try {
         const {firstName, lastName, gender, city, emailAddress} = req.body;
+
+        const checkEmailConflict = userModel.findOne({emailAddress})
+        
+        if(checkEmailConflict) return res.status(statusCodes.conflict).json({messages: messages.emailExist, emailAddress});
+
         const salt = await bcrypt.genSalt(10);
         const password = await bcrypt.hash(req.body.password,salt);
         const confirmPassword = await bcrypt.hash(req.body.confirmPassword,salt);
