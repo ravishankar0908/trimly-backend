@@ -33,6 +33,14 @@ const userSchema = mongoose.Schema({
     confirmPassword:{
         type: String,
         require: [true, "confirm password is required to register"]
+    },
+    role:{
+        type: String,
+        default: "user",
+    },
+    isDelete:{
+        type: Boolean,
+        default: false
     }
 },{timestamps: true})
 
