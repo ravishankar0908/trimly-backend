@@ -1,12 +1,15 @@
 import express from "express";
 import { configDotenv } from "dotenv";
 import userRouter from "./routers/userRouter.js";
+import authRouter from "./routers/authRouter.js";
 import mongoose from "mongoose";
 const app = express();
 configDotenv();
 const PORT = process.env.PORT;
 
 app.use(express.json());
+
+app.use("/auth", authRouter);
 app.use("/users", userRouter);
 
 app.listen(PORT, async () => {

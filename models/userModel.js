@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { userModelMessages } from "../util/responseStatuscodes";
+import { userModelMessages } from "../util/responseStatuscodes.js";
 
 const userSchema = mongoose.Schema(
   {
