@@ -12,6 +12,12 @@ export const userAuthourization = (req, res, next) => {
   jwt.verify(token, process.env.jwt_secret_key, (err, user) => {
     if (err)
       return res.status(statusCodes.notFound).json({ message: err.message });
+
+    if (user.role !== "user") {
+      return res.status(statusCodes.unauth).json({
+        message: messages.unauthorized,
+      });
+    }
     req.user = user;
     next();
   });

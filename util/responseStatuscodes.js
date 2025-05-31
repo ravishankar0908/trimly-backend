@@ -28,6 +28,7 @@ export const messages = {
   roleNotFound: "Role is required.",
   roleNotAccepted: "Given role is not accepted",
   passwordNotMatch: "Both passwords did not match! try again.",
+  unauthorized: "unathorized! don't have authorization",
 };
 
 export const userModelMessages = {
