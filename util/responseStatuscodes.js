@@ -23,6 +23,7 @@ export const messages = {
   validUserId: "user details for the given userId.",
   emailExist: "The Given Email is already Exists.",
   invalidToken: "Invalid Token or token is missing.",
+  logout: "Logged Out Successfully.",
 };
 
 export const userModelMessages = {

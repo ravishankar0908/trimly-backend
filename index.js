@@ -3,11 +3,19 @@ import { configDotenv } from "dotenv";
 import userRouter from "./routers/userRouter.js";
 import authRouter from "./routers/authRouter.js";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 const app = express();
 configDotenv();
 const PORT = process.env.PORT;
 
 app.use(express.json());
+app.use(cookieParser());
+app.use(
+  cors({
+    Credential: true,
+  })
+);
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
