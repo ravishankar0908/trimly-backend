@@ -3,56 +3,6 @@ import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import { statusCodes, messages } from "../util/responseStatuscodes.js";
 
-export const userInsert = async (req, res) => {
-  try {
-    const { firstName, lastName, gender, city, emailAddress } = req.body;
-
-    const checkEmailConflict = await userModel.findOne({ emailAddress });
-
-    if (checkEmailConflict)
-      return res
-        .status(statusCodes.conflict)
-        .json({ messages: messages.emailExist, emailAddress });
-
-    const salt = await bcrypt.genSalt(10);
-    const password = await bcrypt.hash(req.body.password, salt);
-    const confirmPassword = await bcrypt.hash(req.body.confirmPassword, salt);
-    const createUser = userModel.create({
-      firstName,
-      lastName,
-      gender,
-      city,
-      emailAddress,
-      password,
-      confirmPassword,
-    });
-
-    if (createUser) {
-      return res.status(statusCodes.created).json({
-        message: messages.registrationSuccess,
-        data: {
-          firstName,
-          lastName,
-          gender,
-          city,
-          emailAddress,
-          password,
-          confirmPassword,
-        },
-      });
-    }
-
-    return res.status(statusCodes.badreq).json({
-      message: messages.registrationFailed,
-    });
-  } catch (error) {
-    return res.status(statusCodes.serverError).json({
-      message: messages.serverErrorMessage,
-      error: error.message,
-    });
-  }
-};
-
 export const allUserList = async (req, res) => {
   try {
     const users = await userModel.find({});

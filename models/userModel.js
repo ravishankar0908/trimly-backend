@@ -38,7 +38,7 @@ const userSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      default: "user",
+      require: [true, userModelMessages.requireRole],
     },
     isDelete: {
       type: Boolean,

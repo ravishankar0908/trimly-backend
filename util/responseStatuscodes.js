@@ -6,6 +6,7 @@ export const statusCodes = {
   unauth: 401,
   forbidden: 403,
   notFound: 404,
+  notAcceptable: 406,
   conflict: 409,
   serverError: 500,
 };
@@ -24,6 +25,9 @@ export const messages = {
   emailExist: "The Given Email is already Exists.",
   invalidToken: "Invalid Token or token is missing.",
   logout: "Logged Out Successfully.",
+  roleNotFound: "Role is required.",
+  roleNotAccepted: "Given role is not accepted",
+  passwordNotMatch: "Both passwords did not match! try again.",
 };
 
 export const userModelMessages = {
@@ -35,4 +39,15 @@ export const userModelMessages = {
   requirePhone: "phone number is required to register",
   requirePassword: "password is required to register",
   requireConfirmPassword: "confirm password is required to register",
+  requireRole: "Role is required to register.",
+};
+
+export const barberModelMessage = {
+  requireshopname: "shop name is required to register.",
+  requireCity: "city is required to register.",
+  requireEmail: "email address is required to register",
+  requirePhone: "phone number is required to register",
+  requirePassword: "password is required to register",
+  requireConfirmPassword: "confirm password is required to register",
+  requireRole: "Role is required to register.",
 };
