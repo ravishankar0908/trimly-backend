@@ -2,7 +2,7 @@ import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { statusCodes, messages } from "../util/responseStatuscodes.js";
-import barberModel from "../models/barberModel.js";
+import shopownerModel from "../models/shopownerModel.js";
 
 export const userInsert = async (req, res) => {
   try {
@@ -23,7 +23,7 @@ export const userInsert = async (req, res) => {
 
     const checkEmailConflict =
       (await userModel.findOne({ emailAddress })) ||
-      (await barberModel.findOne({ emailAddress }));
+      (await shopownerModel.findOne({ emailAddress }));
 
     if (checkEmailConflict)
       return res
@@ -44,9 +44,9 @@ export const userInsert = async (req, res) => {
         password: hashedPassword,
         role,
       });
-    } else if (role === "barber") {
+    } else if (role === "shopowner") {
       const { shopName } = req.body;
-      await barberModel.create({
+      await shopownerModel.create({
         shopName,
         city,
         emailAddress,
@@ -80,7 +80,7 @@ export const userLogin = async (req, res) => {
     const { emailAddress, password } = req.body;
     const userCheck =
       (await userModel.findOne({ emailAddress })) ||
-      (await barberModel.findOne({ emailAddress }));
+      (await shopownerModel.findOne({ emailAddress }));
 
     if (!userCheck) {
       return res.status(statusCodes.notFound).json({

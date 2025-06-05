@@ -15,7 +15,7 @@ export const allUserList = async (req, res) => {
 
     return res.status(statusCodes.success).json({
       message: messages.allUsers,
-      users,
+      data: users,
     });
   } catch (error) {
     return res.status(statusCodes.serverError).json({
@@ -38,7 +38,7 @@ export const userById = async (req, res) => {
 
     return res.status(statusCodes.found).json({
       message: messages.validUserId,
-      user,
+      data: user,
     });
   } catch (error) {
     return res.status(statusCodes.serverError).json({
