@@ -133,14 +133,12 @@ export const refreshToken = (req, res) => {
   try {
     const token = req.cookies.refreshToken;
 
-    console.log(token);
-
     if (!token)
       return res
         .status(statusCodes.notFound)
         .json({ message: messages.invalidToken });
 
-    jwt.verify(token, process.env.refresh_token_key, (err, user) => {
+    jwt.verify(token, process.env.refresh_secret_key, (err, user) => {
       if (err)
         return res.status(statusCodes.forbidden).json({ message: err.message });
       const payload = {
@@ -149,7 +147,7 @@ export const refreshToken = (req, res) => {
         role: user.role,
       };
       const jwtToken = jwt.sign(payload, process.env.jwt_secret_key, {
-        expiresIn: process.env.jwt_secret_validity,
+        expiresIn: process.env.jwt_token_validity,
       });
 
       res.status(statusCodes.created).json({
