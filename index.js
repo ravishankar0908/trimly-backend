@@ -2,6 +2,7 @@ import express from "express";
 import { configDotenv } from "dotenv";
 import userRouter from "./routers/userRouter.js";
 import authRouter from "./routers/authRouter.js";
+import shopownerRouter from "./routers/shopownerRouter.js";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -19,6 +20,7 @@ app.use(
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
+app.use("/shopowners", shopownerRouter);
 
 app.listen(PORT, async () => {
   try {

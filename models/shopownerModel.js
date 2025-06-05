@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { barberModelMessage } from "../util/responseStatuscodes.js";
 
-const barberSchema = mongoose.Schema(
+const shopownerSchema = mongoose.Schema(
   {
     shopName: {
       type: String,
@@ -39,6 +39,6 @@ const barberSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const barberModel = mongoose.model("barberDetailsCollection", barberSchema);
+const shopownerModel = mongoose.model("shopOwnerCollection", shopownerSchema);
 
-export default barberModel;
+export default shopownerModel;

@@ -26,9 +26,11 @@ export const messages = {
   invalidToken: "Invalid Token or token is missing.",
   logout: "Logged Out Successfully.",
   roleNotFound: "Role is required.",
-  roleNotAccepted: "Given role is not accepted",
+  roleNotAccepted: "Given role is not accepted.",
   passwordNotMatch: "Both passwords did not match! try again.",
-  unauthorized: "unathorized! don't have authorization",
+  unauthorized: "unathorized! don't have authorization.",
+  noShopowners: "There are no shop owners.",
+  shopownersList: "List of shop owners",
 };
 
 export const userModelMessages = {
