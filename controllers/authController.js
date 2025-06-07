@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { statusCodes, messages } from "../util/responseStatuscodes.js";
 import shopownerModel from "../models/shopownerModel.js";
+import adminModel from "../models/adminModel.js";
 
 export const userInsert = async (req, res) => {
   try {
@@ -23,7 +24,8 @@ export const userInsert = async (req, res) => {
 
     const checkEmailConflict =
       (await userModel.findOne({ emailAddress })) ||
-      (await shopownerModel.findOne({ emailAddress }));
+      (await shopownerModel.findOne({ emailAddress })) ||
+      (await adminModel.findOne({ emailAddress }));
 
     if (checkEmailConflict)
       return res
@@ -80,7 +82,8 @@ export const userLogin = async (req, res) => {
     const { emailAddress, password } = req.body;
     const userCheck =
       (await userModel.findOne({ emailAddress })) ||
-      (await shopownerModel.findOne({ emailAddress }));
+      (await shopownerModel.findOne({ emailAddress })) ||
+      (await adminModel.findOne({ emailAddress }));
 
     if (!userCheck) {
       return res.status(statusCodes.notFound).json({
