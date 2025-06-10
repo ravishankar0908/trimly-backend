@@ -15,9 +15,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    Credential: true,
+    origin: process.env.CORS_ORIGIN_FRONTEND,
+    credentials: true,
   })
 );
+console.log(process.env.CORS_ORIGIN_FRONTEND, process.env.CORS_ORIGIN_BACKEND);
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);

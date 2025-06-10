@@ -15,7 +15,7 @@ export const messages = {
   registrationSuccess: "Registration is Successfull.",
   registrationFailed: "Registration is Failed.",
   serverErrorMessage: "Internal Server Error.",
-  emailNotFound: "The Given Email is not found.",
+  emailNotFound: "The Email is not found or Invalid Email.",
   passwordIncorrect: "The Given password is Incorrect.",
   loginSuccess: "Logged in successfully.",
   noUsers: "No users are available.",
