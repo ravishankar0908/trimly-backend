@@ -6,6 +6,7 @@ import shopownerRouter from "./routers/shopownerRouter.js";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import { defaultAdmin } from "./util/defaultAdmin.js";
 const app = express();
 configDotenv();
 const PORT = process.env.PORT;
@@ -14,9 +15,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    Credential: true,
+    origin: process.env.CORS_ORIGIN_FRONTEND,
+    credentials: true,
   })
 );
+console.log(process.env.CORS_ORIGIN_FRONTEND, process.env.CORS_ORIGIN_BACKEND);
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
@@ -28,6 +31,7 @@ app.listen(PORT, async () => {
     console.log(
       `the server is running on the port ${PORT} and Database connection is established.`
     );
+    await defaultAdmin();
   } catch (error) {
     console.error(`connection is not established ${error}`);
   }

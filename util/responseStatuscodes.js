@@ -15,7 +15,7 @@ export const messages = {
   registrationSuccess: "Registration is Successfull.",
   registrationFailed: "Registration is Failed.",
   serverErrorMessage: "Internal Server Error.",
-  emailNotFound: "The Given Email is not found.",
+  emailNotFound: "The Email is not found or Invalid Email.",
   passwordIncorrect: "The Given password is Incorrect.",
   loginSuccess: "Logged in successfully.",
   noUsers: "No users are available.",
@@ -31,6 +31,9 @@ export const messages = {
   unauthorized: "unathorized! don't have authorization.",
   noShopowners: "There are no shop owners.",
   shopownersList: "List of shop owners",
+  adminExist: "This Admin email is already Exists",
+  adminCreationFailed: "Error Occurred creating admin.",
+  adminCreated: "Default admin is inserted.",
 };
 
 export const userModelMessages = {
@@ -52,5 +55,11 @@ export const barberModelMessage = {
   requirePhone: "phone number is required to register",
   requirePassword: "password is required to register",
   requireConfirmPassword: "confirm password is required to register",
+  requireRole: "Role is required to register.",
+};
+
+export const adminModelMessage = {
+  requireEmail: "email address is required to register",
+  requirePassword: "password is required to register",
   requireRole: "Role is required to register.",
 };
