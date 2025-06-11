@@ -19,8 +19,6 @@ app.use(
     credentials: true,
   })
 );
-console.log(process.env.CORS_ORIGIN_FRONTEND, process.env.CORS_ORIGIN_BACKEND);
-
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/shopowners", shopownerRouter);
