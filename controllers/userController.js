@@ -1,5 +1,4 @@
 import userModel from "../models/userModel.js";
-import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import { statusCodes, messages } from "../util/responseStatuscodes.js";
 
