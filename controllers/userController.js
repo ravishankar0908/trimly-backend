@@ -4,17 +4,26 @@ import { statusCodes, messages } from "../util/responseStatuscodes.js";
 
 export const allUserList = async (req, res) => {
   try {
-    const users = await userModel.find({});
+    let { pageNumber, itemsPerPage } = req.query;
+    const skip = (pageNumber - 1) * itemsPerPage;
+    const totalCount = await userModel.countDocuments();
+    const users = await userModel
+      .find({ isDelete: false })
+      .limit(itemsPerPage)
+      .skip(skip)
+      .sort({ createdAt: -1 });
 
     if (users.length === 0) {
       return res.status(statusCodes.notFound).json({
         message: messages.noUsers,
+        data: [],
       });
     }
 
     return res.status(statusCodes.success).json({
       message: messages.allUsers,
       data: users,
+      totalCount,
     });
   } catch (error) {
     return res.status(statusCodes.serverError).json({

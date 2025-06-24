@@ -9,6 +9,7 @@ export const statusCodes = {
   notAcceptable: 406,
   conflict: 409,
   serverError: 500,
+  noContent: 204,
 };
 
 export const messages = {
@@ -34,6 +35,7 @@ export const messages = {
   adminExist: "This Admin email is already Exists",
   adminCreationFailed: "Error Occurred creating admin.",
   adminCreated: "Default admin is inserted.",
+  emptyContent: "There is no available content",
 };
 
 export const userModelMessages = {
