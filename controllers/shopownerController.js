@@ -12,9 +12,7 @@ export const getAllShopOwners = async (req, res) => {
       .limit(itemsPerPage)
       .skip(skip);
 
-    let activeShopOwners = shopowners.filter((shop) => !shop.isDelete);
-
-    if (activeShopOwners.length === 0) {
+    if (shopowners.length === 0) {
       return res.status(statusCodes.success).json({
         message: messages.noShopowners,
         data: [],
@@ -23,7 +21,7 @@ export const getAllShopOwners = async (req, res) => {
 
     return res.status(statusCodes.success).json({
       message: messages.shopownersList,
-      data: activeShopOwners,
+      data: shopowners,
       totalCount,
     });
   } catch (error) {
