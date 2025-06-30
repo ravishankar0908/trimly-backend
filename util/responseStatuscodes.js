@@ -36,6 +36,8 @@ export const messages = {
   adminCreationFailed: "Error Occurred creating admin.",
   adminCreated: "Default admin is inserted.",
   emptyContent: "There is no available content",
+  inserted: "Inserted Successfully",
+  notInserted: "Insertion failed!",
 };
 
 export const userModelMessages = {

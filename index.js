@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { defaultAdmin } from "./util/defaultAdmin.js";
+import stylistRouter from "./routers/stylistRouter.js";
 const app = express();
 configDotenv();
 const PORT = process.env.PORT;
@@ -22,7 +23,7 @@ app.use(
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/shopowners", shopownerRouter);
-
+app.use("/specialization", stylistRouter);
 app.listen(PORT, async () => {
   try {
     await mongoose.connect("mongodb://localhost:27017/trimly");
