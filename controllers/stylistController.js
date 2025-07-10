@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
-import specializationModel from "../models/stylistModel.js";
+import specializationModel from "../models/specializationModel.js";
 import { messages, statusCodes } from "../util/responseStatuscodes.js";
 import { ObjectId } from "mongodb";
+import stylistModel from "../models/stylistModel.js";
 debugger;
 export const insertSpecialization = async (req, res) => {
   try {
@@ -56,6 +57,39 @@ export const getAllSpecialization = async (req, res) => {
       message: messages.inserted,
       data: specialization,
       totalCount,
+    });
+  } catch (error) {
+    return res.status(statusCodes.serverError).json({
+      message: messages.serverErrorMessage,
+      error: error.message,
+    });
+  }
+};
+
+export const insertStylist = async (req, res) => {
+  try {
+    const { name, gender, dateofbirth, experience, level, specialization } =
+      req.body;
+    const { userId } = req.query;
+
+    const isInsertStylist = await stylistModel.create({
+      name,
+      gender,
+      dateofbirth,
+      experience,
+      level,
+      specialization,
+      shopId: new ObjectId(userId),
+    });
+
+    if (!isInsertStylist) {
+      return res.status(statusCodes.badreq).json({
+        message: messages.notInserted,
+      });
+    }
+
+    return res.status(statusCodes.created).json({
+      message: messages.inserted,
     });
   } catch (error) {
     return res.status(statusCodes.serverError).json({
