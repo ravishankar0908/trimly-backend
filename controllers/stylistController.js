@@ -98,3 +98,60 @@ export const insertStylist = async (req, res) => {
     });
   }
 };
+
+export const getAllStylist = async (req, res) => {
+  try {
+    const { userId, pageNumber, itemsPerPage } = req.query;
+    const skip = (pageNumber - 1) * itemsPerPage;
+    const totalCount = await stylistModel.countDocuments({
+      shopId: new ObjectId(userId),
+    });
+    const stylist = await stylistModel
+      .find({
+        shopId: new ObjectId(userId),
+      })
+      .limit(itemsPerPage)
+      .skip(skip);
+
+    if (stylist.length === 0) {
+      return res.status(statusCodes.success).json({
+        message: messages.emptyContent,
+        data: [],
+      });
+    }
+
+    return res.status(statusCodes.success).json({
+      message: messages.inserted,
+      data: stylist,
+      totalCount,
+    });
+  } catch (error) {
+    return res.status(statusCodes.serverError).json({
+      message: messages.serverErrorMessage,
+      error: error.message,
+    });
+  }
+};
+
+export const shopAndStylist = async (req, res) => {
+  try {
+    const shopId = req.query.userId;
+
+    const listOfShopAndStylist = await stylistModel.find().populate("shopId");
+
+    if (!listOfShopAndStylist) {
+      return res.status(statusCodes.notFound).json({
+        message: messages.noUsers,
+      });
+    }
+
+    return res.status(statusCodes.success).json({
+      data: listOfShopAndStylist,
+    });
+  } catch (error) {
+    return res.status(statusCodes.serverError).json({
+      message: messages.serverErrorMessage,
+      error: error.message,
+    });
+  }
+};

@@ -4,11 +4,11 @@ const adminSchema = mongoose.Schema(
   {
     emailAddress: {
       type: String,
-      require: [true, adminModelMessage.requireEmail],
+      required: [true, adminModelMessage.requireEmail],
     },
     password: {
       type: String,
-      require: [true, adminModelMessage.requirePassword],
+      required: [true, adminModelMessage.requirePassword],
     },
     role: {
       type: String,

@@ -4,27 +4,27 @@ const stylistSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      require: [true, "stylist name is required"],
+      required: [true, "stylist name is required"],
     },
     gender: {
       type: String,
-      require: [true, "stylist gender is required"],
+      required: [true, "stylist gender is required"],
     },
     dateofbirth: {
       type: Date,
-      require: [true, "stylist date of birth is required"],
+      required: [true, "stylist date of birth is required"],
     },
     experience: {
       type: Number,
-      require: [true, "stylist experience is required"],
+      required: [true, "stylist experience is required"],
     },
     level: {
       type: String,
-      require: [true, "stylist level is required"],
+      required: [true, "stylist level is required"],
     },
     specialization: {
       type: [String],
-      require: [true, "specialization is required"],
+      required: [true, "specialization is required"],
     },
     isDelete: {
       type: Boolean,
