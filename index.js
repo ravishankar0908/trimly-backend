@@ -23,7 +23,7 @@ app.use(
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/shopowners", shopownerRouter);
-app.use("/specialization", stylistRouter);
+app.use("/stylists", stylistRouter);
 app.listen(PORT, async () => {
   try {
     await mongoose.connect("mongodb://localhost:27017/trimly");

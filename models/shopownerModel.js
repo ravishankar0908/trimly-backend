@@ -5,31 +5,31 @@ const shopownerSchema = mongoose.Schema(
   {
     shopName: {
       type: String,
-      require: [true, barberModelMessage.requireshopname],
+      required: [true, barberModelMessage.requireshopname],
     },
     city: {
       type: String,
-      require: [true, barberModelMessage.requireCity],
+      required: [true, barberModelMessage.requireCity],
     },
     emailAddress: {
       type: String,
-      require: [true, barberModelMessage.requireEmail],
+      required: [true, barberModelMessage.requireEmail],
     },
     phoneNumber: {
       type: Number,
-      require: [true, barberModelMessage.requirePhone],
+      required: [true, barberModelMessage.requirePhone],
     },
     password: {
       type: String,
-      require: [true, barberModelMessage.requirePassword],
+      required: [true, barberModelMessage.requirePassword],
     },
     confirmPassword: {
       type: String,
-      require: [true, barberModelMessage.requireConfirmPassword],
+      required: [true, barberModelMessage.requireConfirmPassword],
     },
     role: {
       type: String,
-      require: [true, barberModelMessage.requireRole],
+      required: [true, barberModelMessage.requireRole],
     },
     isDelete: {
       type: Boolean,

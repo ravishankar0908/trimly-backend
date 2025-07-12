@@ -5,40 +5,40 @@ const userSchema = mongoose.Schema(
   {
     firstName: {
       type: String,
-      require: [true, userModelMessages.requireFirstName],
+      required: [true, userModelMessages.requireFirstName],
     },
     lastName: {
       type: String,
-      require: [true, userModelMessages.requireLastName],
+      required: [true, userModelMessages.requireLastName],
     },
     gender: {
       type: String,
-      require: [true, userModelMessages.requireGender],
+      required: [true, userModelMessages.requireGender],
     },
     city: {
       type: String,
-      require: [true, userModelMessages.requireCity],
+      required: [true, userModelMessages.requireCity],
     },
     emailAddress: {
       type: String,
-      require: [true, userModelMessages.requireEmail],
+      required: [true, userModelMessages.requireEmail],
       unique: true,
     },
     phoneNumber: {
       type: Number,
-      require: [true, userModelMessages.requirePhone],
+      required: [true, userModelMessages.requirePhone],
     },
     password: {
       type: String,
-      require: [true, userModelMessages.requirePassword],
+      required: [true, userModelMessages.requirePassword],
     },
     confirmPassword: {
       type: String,
-      require: [true, userModelMessages.requireConfirmPassword],
+      required: [true, userModelMessages.requireConfirmPassword],
     },
     role: {
       type: String,
-      require: [true, userModelMessages.requireRole],
+      required: [true, userModelMessages.requireRole],
     },
     isDelete: {
       type: Boolean,

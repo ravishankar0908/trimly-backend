@@ -1,14 +1,34 @@
 import mongoose from "mongoose";
 
-const specializationSchema = new mongoose.Schema(
+const stylistSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "specialization name is required "],
+      required: [true, "stylist name is required"],
     },
-    description: {
+    gender: {
       type: String,
-      required: [true, "specialization description is required"],
+      required: [true, "stylist gender is required"],
+    },
+    dateofbirth: {
+      type: Date,
+      required: [true, "stylist date of birth is required"],
+    },
+    experience: {
+      type: Number,
+      required: [true, "stylist experience is required"],
+    },
+    level: {
+      type: String,
+      required: [true, "stylist level is required"],
+    },
+    specialization: {
+      type: [String],
+      required: [true, "specialization is required"],
+    },
+    isDelete: {
+      type: Boolean,
+      default: false,
     },
     shopId: {
       type: Object,
@@ -19,9 +39,5 @@ const specializationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const specializationModel = mongoose.model(
-  "specializationCollection",
-  specializationSchema
-);
-
-export default specializationModel;
+const stylistModel = mongoose.model("stylistDetailCollection", stylistSchema);
+export default stylistModel;
