@@ -31,7 +31,7 @@ const stylistSchema = mongoose.Schema(
       default: false,
     },
     shopId: {
-      type: Object,
+      type: mongoose.Schema.Types.ObjectId,
       required: [true, "shop id is required"],
       ref: "shopOwnerCollection",
     },

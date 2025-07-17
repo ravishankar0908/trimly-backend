@@ -3,6 +3,7 @@ import specializationModel from "../models/specializationModel.js";
 import { messages, statusCodes } from "../util/responseStatuscodes.js";
 import { ObjectId } from "mongodb";
 import stylistModel from "../models/stylistModel.js";
+import shopownerModel from "../models/shopownerModel.js";
 debugger;
 export const insertSpecialization = async (req, res) => {
   try {
@@ -135,18 +136,88 @@ export const getAllStylist = async (req, res) => {
 
 export const shopAndStylist = async (req, res) => {
   try {
-    const shopId = req.query.userId;
+    const { shopId } = req.query;
 
-    const listOfShopAndStylist = await stylistModel.find().populate("shopId");
+    const stylistData = await stylistModel.find({ shopId, isDelete: false });
 
-    if (!listOfShopAndStylist) {
+    if (!stylistData) {
       return res.status(statusCodes.notFound).json({
         message: messages.noUsers,
       });
     }
 
     return res.status(statusCodes.success).json({
-      data: listOfShopAndStylist,
+      data: stylistData,
+    });
+  } catch (error) {
+    return res.status(statusCodes.serverError).json({
+      message: messages.serverErrorMessage,
+      error: error.message,
+    });
+  }
+};
+
+export const shopswithStylist = async (req, res) => {
+  try {
+    const { shopId } = req.query;
+
+    const stylistData = await stylistModel.aggregate([
+      {
+        $lookup: {
+          from: "shopownercollections",
+          localField: "shopId",
+          foreignField: "_id",
+          as: "shopOwner",
+        },
+      },
+      {
+        $unwind: {
+          path: "$shopOwner",
+        },
+      },
+      {
+        $group: {
+          _id: "$shopId",
+          shop: {
+            $first: {
+              _id: "$shopOwner._id",
+              shopName: "$shopOwner.shopName",
+              city: "$shopOwner.city",
+              emailAddress: "$shopOwner.emailAddress",
+              phoneNumber: "$shopOwner.phoneNumber",
+              role: "$shopOwner.role",
+            },
+          },
+          stylists: {
+            $push: {
+              _id: "$_id",
+              name: "$name",
+              gender: "$gender",
+              dateofbirth: "$dateofbirth",
+              experience: "$experience",
+              level: "$level",
+              specialization: "$specialization",
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          shop: 1,
+          stylists: 1,
+        },
+      },
+    ]);
+
+    if (!stylistData) {
+      return res.status(statusCodes.notFound).json({
+        message: messages.noUsers,
+      });
+    }
+
+    return res.status(statusCodes.success).json({
+      data: stylistData,
     });
   } catch (error) {
     return res.status(statusCodes.serverError).json({

@@ -11,7 +11,7 @@ const specializationSchema = new mongoose.Schema(
       required: [true, "specialization description is required"],
     },
     shopId: {
-      type: Object,
+      type: mongoose.Schema.Types.ObjectId,
       required: [true, "shop id is required"],
       ref: "shopOwnerCollection",
     },
