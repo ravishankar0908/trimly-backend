@@ -55,3 +55,30 @@ export const userById = async (req, res) => {
     });
   }
 };
+
+export const deleteUsers = async (req, res) => {
+  try {
+    const { userId } = req.query;
+    const deleteUser = await userModel.findOneAndUpdate(
+      { _id: new mongoose.Types.ObjectId(userId) },
+      { $set: { isDelete: true } },
+      { new: true }
+    );
+
+    if (deleteUser) {
+      return res.status(statusCodes.success).json({
+        message: messages.userDelete,
+        data: deleteUser,
+      });
+    }
+
+    return res.status(statusCodes.success).json({
+      message: messages.userNotDelete,
+    });
+  } catch (error) {
+    return res.status(statusCodes.serverError).json({
+      message: messages.serverErrorMessage,
+      error: error.message,
+    });
+  }
+};
