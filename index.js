@@ -8,15 +8,19 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { defaultAdmin } from "./util/defaultAdmin.js";
 import stylistRouter from "./routers/stylistRouter.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger-output.json" assert { type: "json" };
 const app = express();
 configDotenv();
 const PORT = process.env.PORT;
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN_FRONTEND,
+    origin: [process.env.CORS_ORIGIN_FRONTEND, process.env.CORS_ORIGIN_BACKEND],
     credentials: true,
   })
 );
