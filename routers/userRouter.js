@@ -1,10 +1,14 @@
 import express from "express";
-import { allUserList, userById } from "../controllers/userController.js";
-import { userAuthourization } from "../middlewares/userMiddleware.js";
+import {
+  allUserList,
+  deleteUsers,
+  userById,
+} from "../controllers/userController.js";
 import { alluserAuthourization } from "../middlewares/alluserMiddleware.js";
 const router = express.Router();
 
 router.get("/", alluserAuthourization, allUserList);
 router.get("/userbyid", alluserAuthourization, userById);
+router.patch("/delete", alluserAuthourization, deleteUsers);
 
 export default router;

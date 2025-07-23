@@ -38,6 +38,8 @@ export const messages = {
   emptyContent: "There is no available content",
   inserted: "Inserted Successfully",
   notInserted: "Insertion failed!",
+  userDelete: "User is deleted Successfully",
+  userNotDelete: "User is not deleted!",
 };
 
 export const userModelMessages = {
